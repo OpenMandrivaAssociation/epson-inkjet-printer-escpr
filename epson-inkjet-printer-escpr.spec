@@ -68,7 +68,7 @@ cp -a README README.ja COPYING AUTHORS NEWS ..
 # Get rid of .so file, since no headers are installed.
 rm %{buildroot}%{_libdir}/libescpr.so
 
-%ldconfig_scriptlets
+#%ldconfig_scriptlets
 
 %files
 %doc README README.ja COPYING AUTHORS NEWS
