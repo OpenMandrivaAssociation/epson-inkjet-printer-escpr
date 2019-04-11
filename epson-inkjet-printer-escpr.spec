@@ -20,7 +20,7 @@ Source0:        https://download3.ebz.epson.net/dsc/f/03/00/08/18/20/e94de600e28
 BuildRequires:  autoconf
 BuildRequires:  chrpath
 BuildRequires:  cups-devel
-BuildRequires:  libjpeg-devel
+BuildRequires:  pkgconfig(libjpeg)
 
 # For automatic detection of printer drivers
 BuildRequires:  python-cups
