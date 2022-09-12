@@ -3,6 +3,8 @@
 # Not defined on el6
 %{!?_cups_serverbin: %global _cups_serverbin %(/usr/bin/cups-config --serverbin)}
 
+%global optflags %{optflags} -O3 -Wno-int-conversion
+
 Name:           epson-inkjet-printer-escpr
 Summary:        Drivers for Epson inkjet printers
 Version:        1.7.21
