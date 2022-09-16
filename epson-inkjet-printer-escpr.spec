@@ -3,7 +3,8 @@
 # Not defined on el6
 %{!?_cups_serverbin: %global _cups_serverbin %(/usr/bin/cups-config --serverbin)}
 
-%global optflags %{optflags} -O3 -Wno-int-conversion
+%global optflags %{optflags} -O3
+# -Wno-int-conversion
 
 Name:           epson-inkjet-printer-escpr
 Summary:        Drivers for Epson inkjet printers
@@ -18,6 +19,7 @@ Source0:        https://download3.ebz.epson.net/dsc/f/03/00/08/18/20/e94de600e28
 # Patch from Arch Linux
 # https://aur.archlinux.org/packages/epson-inkjet-printer-escpr/
 #Patch1:         epson-inkjet-printer-escpr-filter.patch
+Patch0:		epson-escpr-clang-15.patch
 
 BuildRequires:  autoconf
 BuildRequires:  chrpath
@@ -37,7 +39,7 @@ For a detailed list of supported printers, please refer to
 http://avasys.jp/english/linux_e/
 
 %prep
-%setup -q 
+%autosetup -p1
 #%patch0 -p1 -b .inc
 #%patch1 -p1 -b .filter
 # Fix permissions

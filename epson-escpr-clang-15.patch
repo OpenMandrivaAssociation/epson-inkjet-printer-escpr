@@ -1,0 +1,57 @@
+diff -up epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.c.omv~ epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.c
+--- epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.c.omv~	2022-09-16 17:51:46.954753635 +0200
++++ epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.c	2022-09-16 17:56:20.081770731 +0200
+@@ -342,13 +342,9 @@ EPS_UINT8*   tmpLineBuf;
+ static EPS_ERR_CODE MonitorStatus           (EPS_STATUS_INFO *                          );
+ static EPS_ERR_CODE SendLeftovers           (void                                       );
+ static EPS_ERR_CODE SendBlankBand           (void                                       );
+-EPS_ERR_CODE SetupJobAttrib          (const EPS_JOB_ATTRIB*                      );
+ static EPS_ERR_CODE SetupRGBAttrib          (void                                       );
+ static EPS_ERR_CODE SetupJPGAttrib          (void                                       );
+-EPS_ERR_CODE SendStartJob			(EPS_BOOL                                   );
+-EPS_ERR_CODE SendEndJob  			(EPS_BOOL                                   );
+ 
+-EPS_ERR_CODE PrintBand               (const EPS_UINT8*, EPS_UINT32, EPS_UINT32*  );
+ static EPS_ERR_CODE PrintChunk              (const EPS_UINT8*, EPS_UINT32*              );
+ static void         AdjustBasePoint         (void                                       );
+ static EPS_ERR_CODE PrintLine               (EPS_IMAGE*                                 );
+diff -up epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.h.omv~ epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.h
+--- epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.h.omv~	2022-09-16 17:54:04.890762733 +0200
++++ epson-inkjet-printer-escpr-1.7.15/lib/epson-escpr-api.h	2022-09-16 17:56:37.655771716 +0200
+@@ -111,6 +111,12 @@ extern EPS_ERR_CODE epsGetUsersizeRange
+     /*** -------------------------------------------------------------------------------*/
+ extern EPS_ERR_CODE epsMakeMainteCmd     (EPS_INT32, EPS_UINT8*, EPS_UINT32*            );
+ 
++    /*** Stuff that pretends to be "local", but is used by filter.c nevertheless */
++extern EPS_ERR_CODE SetupJobAttrib          (const EPS_JOB_ATTRIB*                      );
++extern EPS_ERR_CODE PrintBand               (const EPS_UINT8*, EPS_UINT32, EPS_UINT32*  );
++extern EPS_ERR_CODE SendStartJob            (EPS_BOOL                                   );
++extern EPS_ERR_CODE SendEndJob              (EPS_BOOL                                   );
++
+ #ifdef __cplusplus
+ }
+ #endif
+diff -up epson-inkjet-printer-escpr-1.7.15/lib/epson-espr-api.c.omv~ epson-inkjet-printer-escpr-1.7.15/lib/epson-espr-api.c
+diff -up epson-inkjet-printer-escpr-1.7.15/src/filter.c.omv~ epson-inkjet-printer-escpr-1.7.15/src/filter.c
+--- epson-inkjet-printer-escpr-1.7.15/src/filter.c.omv~	2022-09-16 17:52:53.210758141 +0200
++++ epson-inkjet-printer-escpr-1.7.15/src/filter.c	2022-09-16 17:55:57.222769433 +0200
+@@ -33,6 +33,8 @@
+ #include "epson-protocol.h"
+ #include "epson-escpr-api.h"
+ #include "epson-escpr-mem.h"
++#include "epson-escpr-services.h"
++#include "epson-escpage.h"
+ 
+ #include "err.h"
+ #include "mem.h"
+diff -up epson-inkjet-printer-escpr-1.7.15/src/mem.c.omv~ epson-inkjet-printer-escpr-1.7.15/src/mem.c
+--- epson-inkjet-printer-escpr-1.7.15/src/mem.c.omv~	2022-09-16 17:56:58.118772850 +0200
++++ epson-inkjet-printer-escpr-1.7.15/src/mem.c	2022-09-16 17:57:03.033773116 +0200
+@@ -23,6 +23,7 @@
+ 
+ #include <stdlib.h>
+ #include "mem.h"
++#include "err.h"
+ 
+ void *
+ mem_malloc (unsigned int size, bool_t crit)
