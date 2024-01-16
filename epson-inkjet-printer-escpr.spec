@@ -8,12 +8,17 @@
 
 Name:           epson-inkjet-printer-escpr
 Summary:        Drivers for Epson inkjet printers
-Version:        1.7.26
-Release:        1.%{lsb}
+Version:        1.8.3
+Release:        1
 License:        GPLv2+
 URL:            http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
+# As of 1.8 release, downloading source is even more tricky. Go to above url select any current printer model like xp-412, select download "Epson Inkjet Printer Driver (ESC/P-R) for Linux"
+# then agree on eula, go to "package download page" entry, then ignore prebuild rpm and deb installers and scroll down to and choose source code for x86 CPU". 
+# Right now is hard to define direct source url to download. So we need do it manually,
+Source0:        epson-inkjet-printer-escpr-%{version}-1.tar.gz
+# Outdated
 # Download address is garbled on web page
-Source0:        https://download3.ebz.epson.net/dsc/f/03/00/08/18/20/e94de600e28e510c1cfa158929d8b2c0aadc8aa0/epson-inkjet-printer-escpr-%{version}-%{lsb}.tar.gz
+#Source0:        https://download3.ebz.epson.net/dsc/f/03/00/08/18/20/e94de600e28e510c1cfa158929d8b2c0aadc8aa0/epson-inkjet-printer-escpr-%{version}-%{lsb}.tar.gz
 # Fix includes
 #Patch0:         epson-inkjet-printer-escpr-inc.patch
 # Patch from Arch Linux
