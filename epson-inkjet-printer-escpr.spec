@@ -25,6 +25,8 @@ Source0:        epson-inkjet-printer-escpr-%{version}-1.tar.gz
 # https://aur.archlinux.org/packages/epson-inkjet-printer-escpr/
 #Patch1:         epson-inkjet-printer-escpr-filter.patch
 Patch0:		epson-escpr-clang-15.patch
+# Needed because: filter.c:37:10: fatal error: 'epson-escpage.h' file not found #include "epson-escpage.h"
+Patch1:  epson-inkjet-printer-escpr-1.8-missing-include.patch
 
 BuildRequires:  autoconf
 BuildRequires:  chrpath
@@ -56,13 +58,13 @@ done
 
 %build
 autoconf
-%configure --disable-static --enable-shared --disable-rpath
+%configure --disable-static --enable-shared --disable-rpath --with-cupsfilterdir=%{_prefix}/lib/cups/filter --with-cupsppddir=%{_datadir}/cups/model
 # SMP make doesn't work
 #make %{?_smp_mflags}
-make
+%make_build
 
 %install
-make install DESTDIR=%{buildroot} CUPS_PPD_DIR=%{_datadir}/ppd/Epson
+%make_install DESTDIR=%{buildroot} CUPS_PPD_DIR=%{_datadir}/ppd/Epson
 # Get rid of .la files
 rm -f %{buildroot}%{_libdir}/*.la
 # Compress ppd files
