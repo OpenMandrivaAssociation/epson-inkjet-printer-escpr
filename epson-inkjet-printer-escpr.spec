@@ -25,6 +25,7 @@ Source0:        epson-inkjet-printer-escpr-%{version}-1.tar.gz
 # https://aur.archlinux.org/packages/epson-inkjet-printer-escpr/
 #Patch1:         epson-inkjet-printer-escpr-filter.patch
 Patch0:		epson-escpr-clang-15.patch
+Patch1:  epson-inkjet-printer-escpr-1.8-missing-include.patch
 
 BuildRequires:  autoconf
 BuildRequires:  chrpath
