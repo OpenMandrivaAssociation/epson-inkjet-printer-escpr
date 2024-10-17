@@ -11,7 +11,7 @@ Summary:        Drivers for Epson inkjet printers
 Version:        1.8.5
 Release:        1
 License:        GPLv2+
-URL:            http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
+URL:            https://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
 # As of 1.8 release, downloading source is even more tricky. Go to above url select any current printer model like xp-412, select download "Epson Inkjet Printer Driver (ESC/P-R) for Linux"
 # then agree on eula, go to "package download page" entry, then ignore prebuild rpm and deb installers and scroll down to and choose source code for x86 CPU". 
 # Right now is hard to define direct source url to download. So we need do it manually,
