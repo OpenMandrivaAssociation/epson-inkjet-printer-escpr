@@ -28,6 +28,10 @@ Patch0:		epson-escpr-clang-15.patch
 # Needed because: filter.c:37:10: fatal error: 'epson-escpage.h' file not found #include "epson-escpage.h"
 Patch1:  epson-inkjet-printer-escpr-1.8-missing-include.patch
 
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  autoconf
 BuildRequires:  chrpath
 BuildRequires:  cups-devel
