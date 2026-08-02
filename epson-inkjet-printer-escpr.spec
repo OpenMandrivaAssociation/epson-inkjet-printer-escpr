@@ -8,7 +8,7 @@
 
 Name:           epson-inkjet-printer-escpr
 Summary:        Drivers for Epson inkjet printers
-Version:        1.8.5
+Version:        1.8.8
 Release:        1
 License:        GPLv2+
 URL:            https://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
